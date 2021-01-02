@@ -1,10 +1,11 @@
 #include <gtk/gtk.h>
 #include <glib.h>
 #include <unistd.h>
+#include <stdio.h>
 
 struct Windows {
 	GtkWidget *main_window;
-	GtkWidget *splash_screen;
+	GtkWidget *splash_window;
 
 };
 
@@ -12,24 +13,25 @@ static struct Windows *windows = NULL;
 GtkApplication *app = NULL;
 
 gboolean
-main_activity()
+splash_activity()
 {
-
+	g_print("splash_activity called");
 	return FALSE;
 }
 
 static void 
-create_main_window()
+create_splash_window()
 {
-	windows->main_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	g_assert(windows->main_window);
-	gtk_window_set_title (GTK_WINDOW (windows->main_window), 
-		"Window");
-	gtk_window_set_default_size (GTK_WINDOW (windows->main_window),
-		200, 200);
+	windows->splash_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	g_assert(windows->splash_window);
+	
+	gtk_window_set_resizable (GTK_WINDOW (windows->splash_window), FALSE);
+	gtk_window_set_decorated (GTK_WINDOW (windows->splash_window), FALSE);
+	gtk_window_set_default_size (GTK_WINDOW (windows->splash_window),
+		180, 50);
 
-	gtk_widget_show_all (windows->main_window);
-	gtk_application_add_window(app, GTK_WINDOW (windows->main_window));
+	gtk_widget_show_all (windows->splash_window);
+	gtk_application_add_window (app, GTK_WINDOW (windows->splash_window));
 }
 
 static void
@@ -40,10 +42,10 @@ on_activate(GtkApplication* app)
 	g_assert(windows);
 
 	windows->main_window = NULL;
-	windows->splash_screen = NULL;
+	windows->splash_window = NULL;
 
-	create_main_window();
-	g_idle_add(main_activity, NULL);
+	create_splash_window();
+	g_timeout_add(0,splash_activity, NULL);
 }
 
 int
