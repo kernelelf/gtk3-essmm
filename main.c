@@ -19,14 +19,17 @@ GtkApplication *app = NULL;
 
 
 static void update_splash_window();
+static void remove_splash_window();
 static void update_splash_window_progress_bar(gdouble,gchar*);
 
 gboolean
 splash_activity()
 {
-	
+
+	/* TODO: TREAD */
 	update_splash_window();
-	update_splash_window_progress_bar(0.1,"Progress bar started");
+	update_splash_window_progress_bar(0.5,"Simple test");
+
 	return FALSE;
 }
 
@@ -60,6 +63,15 @@ init_splash_window()
 
 	gtk_container_add (GTK_CONTAINER (windows->splash_window),
 		fixed);
+}
+
+static void
+remove_splash_window()
+{
+
+	gtk_window_close (GTK_WINDOW (windows->splash_window));
+	gtk_application_remove_window (app, 
+		GTK_WINDOW (windows->splash_window));
 }
 
 static void
@@ -108,7 +120,7 @@ on_activate(GtkApplication* app)
 	show_splash_window();
 	update_splash_window();
 
-	g_timeout_add (0,splash_activity, NULL);
+	g_idle_add(splash_activity, NULL);
 }
 
 int
