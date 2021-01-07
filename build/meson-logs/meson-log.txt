@@ -1,4 +1,4 @@
-Build started at 2021-01-02T17:25:26.041805
+Build started at 2021-01-06T18:59:47.239631
 Main binary: /usr/bin/python3
 Build Options: 
 Python system: Linux
@@ -57,8 +57,8 @@ Target machine cpu family: x86_64
 Target machine cpu: x86_64
 None of 'CC_LD' are defined in the environment, not changing global flags.
 Running compile:
-Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp0zgs3hhm
-Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp0zgs3hhm/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp0zgs3hhm/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -lgtk-3 -Wl,--end-group -Wl,--allow-shlib-undefined 
+Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpu82fg5ub
+Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpu82fg5ub/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpu82fg5ub/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -lgtk-3 -Wl,--end-group -Wl,--allow-shlib-undefined 
 
 Code:
  int main(void) { return 0; }
@@ -89,8 +89,8 @@ Called `/usr/bin/pkg-config gtk+-3.0 --libs` -> 0
 None of 'PKG_CONFIG_PATH' are defined in the environment, not changing global flags.
 None of 'CC_LD' are defined in the environment, not changing global flags.
 Running compile:
-Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpxbyxbxxe
-Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpxbyxbxxe/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpxbyxbxxe/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 
+Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpup6j1i2d
+Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpup6j1i2d/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpup6j1i2d/output.exe -pipe -D_FILE_OFFSET_BITS=64 -O0 
 
 Code:
  #include<stdio.h>
@@ -111,8 +111,8 @@ Program stderr:
 
 
 Running compile:
-Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpo2f6u4td
-Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpo2f6u4td/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmpo2f6u4td/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+Working directory:  /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp3ocqcl_w
+Command line:  cc /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp3ocqcl_w/testfile.c -o /home/liveuser/Documents/gtk3-essmm/build/meson-private/tmp3ocqcl_w/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
 
 Code:
  

@@ -13,25 +13,74 @@ struct Windows_Res {
 	GtkWidget *progress_bar;
 };
 
+struct Thread_ST {
+	GThread *thread;
+
+};
+
 static struct Windows *windows = NULL;
 static struct Windows_Res *windows_res = NULL;
+static struct Thread_ST *thread_st = NULL;
+
 GtkApplication *app = NULL;
 
 
 static void update_splash_window();
 static void remove_splash_window();
 static void update_splash_window_progress_bar(gdouble,gchar*);
+static void init_splash_window();
+static void show_splash_window();
+static void init_main_window();
+static void show_main_window();
 
-gboolean
-splash_activity()
+static gpointer
+Thread_main()
 {
 
-	/* TODO: TREAD */
-	update_splash_window();
-	update_splash_window_progress_bar(0.5,"Simple test");
+	/* This is a thread, from here this function
+	 * is going to be run inside a new process
+	 * with a new stack flame and PC.
+	 * */
 
-	return FALSE;
+	/* Simulate a program in executation */	
+	update_splash_window_progress_bar(0.2,"Work in progress");
+	g_usleep(1500000);
+	update_splash_window_progress_bar(0.5,"Working...");
+	g_usleep(2000000);
+	update_splash_window_progress_bar(0.8,"Work near of the end");
+	g_usleep(2000000);
+	update_splash_window_progress_bar(1.0,"Work finished");
+	g_usleep(1000000);
+
+	remove_splash_window();
+
+	g_print("INIT MAIN WINDOW\n");
+	init_main_window();
+	show_main_window();
+
+	return NULL;
 }
+
+static void
+init_main_window()
+{
+	windows->main_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+	g_assert(windows->main_window);
+	
+	gtk_window_set_default_size (GTK_WINDOW (windows->main_window),
+			480,640);
+}
+
+static void
+show_main_window()
+{
+
+	gtk_application_add_window (app, GTK_WINDOW (windows->main_window));
+
+	gtk_widget_show_all (windows->main_window);
+
+}
+
 
 static void
 init_splash_window()
@@ -69,18 +118,22 @@ static void
 remove_splash_window()
 {
 
-	gtk_window_close (GTK_WINDOW (windows->splash_window));
-	gtk_application_remove_window (app, 
+	gtk_application_remove_window (app,
 		GTK_WINDOW (windows->splash_window));
+	gtk_window_close (GTK_WINDOW (windows->splash_window));
 }
 
 static void
 show_splash_window()
 {
-	gtk_widget_show_all (windows->splash_window);
+
 	gtk_application_add_window (app, GTK_WINDOW (windows->splash_window));
+	gtk_widget_show_all (windows->splash_window);
 
 }
+
+
+/* Func created for concetual porposes */
 
 static void
 update_splash_window()
@@ -103,24 +156,30 @@ update_splash_window_progress_bar(gdouble porc, gchar *pbar_string)
 static void
 on_activate(GtkApplication* app)
 {
-	g_assert(app);
+	g_assert (app);
 	windows = g_malloc (sizeof windows);
 	windows_res = g_malloc (sizeof windows_res);
+	thread_st = g_malloc (sizeof thread_st);
 
 	g_assert (windows);
 	g_assert (windows_res);
+	g_assert (thread_st);
 
 	windows->main_window = NULL;
 	windows->splash_window = NULL;
-	
+	thread_st->thread = NULL;
 	windows_res->progress_bar = NULL;
 
-	/* create the splash window and start*/
+	/* Inicialize the first window (Splash Screen) with 
+	 * all yours components and create a thred
+	 * */
+
+	g_print("INIT SPLASH WINDOW\n");
 	init_splash_window();
 	show_splash_window();
 	update_splash_window();
 
-	g_idle_add(splash_activity, NULL);
+	thread_st->thread = g_thread_new ("MAIN_THREAD",Thread_main,NULL);
 }
 
 int
@@ -138,6 +197,7 @@ main(int argc, char **argv)
 
 	g_free(windows);
 	g_free(windows_res);
+	g_free(thread_st);
 
 	return status;
 }
